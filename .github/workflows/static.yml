@@ -1,26 +1,23 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
-
-on:
-  workflow_dispatch: {}
-  push:
-    branches: [ "main" ]
-    tags: [ '*' ]
+  pages: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # - uses: actions/checkout@v3
-      # - uses: oven-sh/setup-bun@v2
-      # - run: bun install
-      # - run: bun run build
-      # - run: zip -r dist/dist.zip dist/*
-      # - run: md5sum dist/dist.zip | awk '{ print $1 }' > dist/ver
-      # - uses: JamesIves/github-pages-deploy-action@v4
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: dist-pro
-          folder: index.html
+          folder: . # The folder the action should deploy.
